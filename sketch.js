@@ -10,6 +10,8 @@ var score;
 var gameov;
 var winso;
 var lifel;
+var button;
+var buttoni;
 
 function setup(){
   createCanvas(400,600)
@@ -20,6 +22,7 @@ function setup(){
     bullets.setVelocity(0,-3)
   hearts = 3
   gamestate = "play"
+  
   earth = createSprite(200,600,5000,240)
   
   virus1 = loadImage("virus1.png")
@@ -35,7 +38,11 @@ function setup(){
   gameov = loadSound("gameo.mp3")
   winso = loadSound("Coin.mp3")
   lifel = loadSound("Pew.mp3")
+  buttoni = loadImage("fire.png")
   score = 0;
+  button = createSprite(200,550,20,20)
+  button.addImage("FImg",buttoni);
+  button.scale=0.5
 }
 
 function draw(){
@@ -52,7 +59,10 @@ function draw(){
   earth.scale = 3
   //x = gun.positionX
   
-  
+  if(mousePressedOver(button)){
+    bullets = createSprite(gun.x-7,gun.y-15,15,15)
+    bullets.setVelocity(0,-3)
+  }
   if(mouseY<466 && mouseY>133){
    gun.x = mouseX
    //gun.y = mouseY
@@ -95,11 +105,13 @@ function draw(){
     //gameov.play()
     //gameov.loop=false;
     //break;
+    virusGroup.destroyEach()
   }
 
-}
+
 
 function spawnVirus(){
+  if(gamestate==="play"){
   if(frameCount%60===0){
     var virus = createSprite(Math.round(random(20,380)),-20,20,20);
     virus.setVelocity(0,10);
@@ -122,4 +134,6 @@ function spawnVirus(){
         
     }
   }
+  }
+}
 }
