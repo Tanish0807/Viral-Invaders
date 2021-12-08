@@ -244,7 +244,7 @@ p5.prototype._updateNextTouchCoords = function(e) {
         y = touchInfo.y;
       }
 
-      var touches = [];
+      /*var touches = [];
       var touchIndex = 0;
       for (var i = 0; i < e.touches.length; i++) {
         // Only some touches are valid - only push valid touches into the
@@ -266,7 +266,7 @@ p5.prototype._updateNextTouchCoords = function(e) {
     this._setProperty('_hasTouchInteracted', true);
   }
 };
-
+*/
 // NOTE: returns undefined if the position is outside of the valid range
 function getTouchInfo(canvas, e, i) {
   i = i || 0;
