@@ -1,17 +1,16 @@
+//GitHub test
+
 var gun, gunImage;
 var virus1,virus2,virus3,virus4,virus5;
 var virusGroup;
 var backgroundImg;
 var gamestate
 var bullets,bulletImage
-var hearts;
+var hearts, score, highscore;
 var earth;
-var score;
-var gameov;
-var winso;
-var lifel;
-var button;
-var buttoni;
+var gameov, winso, lifel;
+var button, lbutton, rbutton, buttoni, restart_button;
+
 
 function setup(){
   createCanvas(400,600)
@@ -39,18 +38,36 @@ function setup(){
   winso = loadSound("Coin.mp3")
   lifel = loadSound("Pew.mp3")
   buttoni = loadImage("fire.png")
+  buttonr = loadImage("RB.png")
+  buttonl = loadImage("LB.png")
   score = 0;
+  highscore = 0;
   button = createSprite(200,550,20,20)
   button.addImage("FImg",buttoni);
   button.scale=0.5
+  lbutton = createSprite(80,550,20,20)
+  lbutton.addImage("LImg",buttonl);
+  lbutton.scale=0.4
+  rbutton = createSprite(320,550,20,20)
+  rbutton.addImage("RImg",buttonr);
+  rbutton.scale=0.4
+  buttonrps = loadImage("R.png")
+  restart_button = createSprite(200,350,70,40)
+  //restart_button.visible = false;
+  restart_button.addImage("RB",buttonrps)
+  restart_button.scale = 0.7
 }
 
 function draw(){
   background(bg)
+  touches[0] = mouseX
+  touches[1] = mouseY
   textSize(20)
   fill("white")
-  text("Score: "+score,50,40)
-  text("Lives: "+hearts,250,40)
+  text("Score: "+score,25,40)
+  text("High Score: "+highscore,135,40)
+  text("Lives: "+hearts,300,40)
+  
   gun.addImage("gunImg",gunImage);
   gun.scale = 0.1
   bullets.addImage("bulletImg", bulletImage)
@@ -63,13 +80,19 @@ function draw(){
     bullets = createSprite(gun.x-7,gun.y-15,15,15)
     bullets.setVelocity(0,-3)
   }
+  if(mousePressedOver(lbutton)){
+    gun.x = gun.x - 15
+  }
+  if(mousePressedOver(rbutton)){
+    gun.x = gun.x + 15
+  }
   if(mouseY<466 && mouseY>133){
    gun.x = mouseX
    //gun.y = mouseY
-  if(mouseWentDown()){
+  if(mouseWentDown() && gamestate==="play"){
     //bullets = createSprite(mouseX,mouseY-25,15,15)
     bullets = createSprite(mouseX,325,15,15)
-    bullets.setVelocity(0,-3)
+    bullets.setVelocity(0,-2)
   }
   }
    
@@ -87,7 +110,12 @@ function draw(){
   
   spawnVirus();
   if(gamestate==="play"){
-  drawSprites();
+    drawSprites();
+    restart_button.visible= false;
+    gun.visible = true;
+    button.visible = true;
+    lbutton.visible = true;
+    rbutton.visible = true;
   }
   
   if(earth.isTouching(virusGroup)){
@@ -98,17 +126,29 @@ function draw(){
   }
   
   if(gamestate==="end"){
-    textSize(30)
+    textSize(18)
     fill("white")
-    //text("Press q or click the restart button",80,300);
-    text("GAME OVER",100,300);
+    text("Game Over! Click the Restart Button to Replay.",10,300);
+    drawSprites()
+    restart_button.visible= true;
+    gun.visible = false;
+    button.visible = false;
+    lbutton.visible = false;
+    rbutton.visible = false;
     //gameov.play()
     //gameov.loop=false;
     //break;
     virusGroup.destroyEach()
+    if(score>highscore){
+      highscore = score 
+    }
   }
 
-
+  if(mousePressedOver(restart_button)){
+    gamestate="play"
+    score = 0;
+    hearts = 3;
+  }
 
 function spawnVirus(){
   if(gamestate==="play"){
