@@ -266,6 +266,7 @@ p5.prototype._updateNextTouchCoords = function(e) {
     this._setProperty('_hasTouchInteracted', true);
   }
 };
+
 // NOTE: returns undefined if the position is outside of the valid range
 function getTouchInfo(canvas, e, i) {
   i = i || 0;
