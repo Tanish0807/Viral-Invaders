@@ -358,10 +358,10 @@ function draw() {
   if (gamestate === "market") {
     drawSprites();
     
-    textSize(18)
+    textSize(12)
     fill('white')
-    text("Increase the Bullet's Speed",180, 200)
-    text("Increase no. of power ups",180, 450)
+    text("Increase the Bullet's Speed | 1000 Coins",160, 200)
+    text("Increase frequency. of power ups | 3000 Coins",160, 450)
     restart_button.visible = false;
     homescreen.visible = false;
     next_level.visible = false;
