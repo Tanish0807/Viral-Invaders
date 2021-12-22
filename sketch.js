@@ -63,7 +63,6 @@ function setup() {
   gameov = loadSound("gameo.mp3");
   winso = loadSound("Coin.mp3");
   loselo = loadSound('Lose.wav')
-  //dkgkso = loadSound('Crunch.wav')
   dkgkso = loadSound('Door.wav')
   
   
@@ -213,6 +212,7 @@ function draw() {
     rbutton.visible = false;
     startbutton.visible = true;
     marketbutton.visible = true;
+    marketbutton.disable = false;
     earth.visible = false;
     backbutton.visible = false
     upgradebullet.visible = false
@@ -351,6 +351,7 @@ function draw() {
     startbutton.visible = false;
     backbutton.visible = false
     marketbutton.visible = false
+    marketbutton.disable = true;
   }
   
   
@@ -379,6 +380,7 @@ function draw() {
     marketbutton.visible = false
     image(coinicon, 170, 21, 40, 40);
     image(marketimg, 60, 17, 90, 90)
+    marketbutton.disable = true;
     textSize(30);
     fill('white')
     text('Coins: ' + money, 220, 50)
@@ -435,6 +437,7 @@ function draw() {
     if (nextlevel == true) {
       next_level.visible = true;
     }
+    marketbutton.disable = true;
     gun.visible = false;
     marketbutton.visible = false
     button.visible = false;
